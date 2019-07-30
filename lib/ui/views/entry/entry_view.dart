@@ -1,4 +1,6 @@
 import 'package:bus_booking/core/helpers/utils.dart';
+import 'package:bus_booking/core/helpers/validator.dart';
+import 'package:bus_booking/core/viewmodels/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
@@ -6,6 +8,7 @@ import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:bus_booking/core/config/constants.dart';
 import 'package:bus_booking/ui/widgets/custom_ui.dart';
 import 'package:bus_booking/ui/shared/theme.dart';
+import 'package:provider/provider.dart';
 
 class EntryView extends StatefulWidget {
   @override
@@ -17,7 +20,13 @@ class _EntryViewState extends State<EntryView> with TickerProviderStateMixin {
   KeyboardVisibilityNotification _keyboardVisibilityNotification = KeyboardVisibilityNotification();
   bool _isKeyboardVisible = false;
 
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _autoValidate = false;
+  bool _showPassword = false;
+  bool _isLoading = false;
+
   ScrollController _scrollController = ScrollController();
+  TextEditingController _emailController = TextEditingController();
 
   FocusNode _emailFocus = FocusNode();
   FocusNode _passwordFocus = FocusNode();
@@ -25,6 +34,7 @@ class _EntryViewState extends State<EntryView> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
     _keyboardVisibilityNotification.addNewListener(
       onChange: _onKeyboardChanged
     );
@@ -48,6 +58,7 @@ class _EntryViewState extends State<EntryView> with TickerProviderStateMixin {
     super.dispose();
     _keyboardVisibilityNotification.dispose();
     _scrollController.dispose();
+    _emailController.dispose();
   }
 
   @override
@@ -131,10 +142,17 @@ class _EntryViewState extends State<EntryView> with TickerProviderStateMixin {
                 textColor: Colors.white,
                 onPressed: () => Navigator.of(context).pushNamed('/create-account'),
               ),
-              FloatingActionButton(
-                heroTag: 'submit',
-                onPressed: () {},
-                child: Icon(EvaIcons.arrowForward),
+              AnimatedSwitcher(
+                duration: Duration(milliseconds: 400),
+                transitionBuilder: (Widget child, Animation<double> animation) => ScaleTransition(
+                  child: child,
+                  scale: animation,
+                ),
+                child: _SubmitButton(
+                  key: ValueKey<int>(_isLoading ? 1 : 0),
+                  isLoading: _isLoading,
+                  onPressed: _onSubmit
+                ),
               )
             ],
           )
@@ -145,27 +163,93 @@ class _EntryViewState extends State<EntryView> with TickerProviderStateMixin {
 
   Widget _buildForm() {
     return Form(
+      key: _formKey,
+      autovalidate: _autoValidate,
       child: Column(
         children: <Widget>[
           CustomTextField(
+            controller: _emailController,
             focusNode: _emailFocus,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             labelText: 'Email Address',
             leftmostIcon: Icon(EvaIcons.emailOutline),
+            validator: (value) => Validator([
+              Validators().isRequired(value, 'Enter your email address'),
+              Validators().isEmail(value, 'Enter your email address in correct format:\nsomeone@gmail.com')
+            ]).exec(),
             onFieldSubmitted: (_) => Utils.fieldFocusChange(context, _emailFocus, _passwordFocus),
           ),
           SizedBox(height: 16.0),
           CustomTextField(
             focusNode: _passwordFocus,
-            obscureText: true,
+            obscureText: !_showPassword,
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.done,
+            suffixIcon: IconButton(
+              icon: Icon(_showPassword ? EvaIcons.eyeOffOutline : EvaIcons.eyeOutline),
+              onPressed: () => setState(() => _showPassword = !_showPassword)
+            ),
             labelText: 'Password',
             leftmostIcon: Icon(EvaIcons.lockOutline),
+            validator: (value) => Validator([
+              Validators().isRequired(value, 'Enter your password'),
+              Validators().minLength(value, 6, 'Your password must be at least 6 characters')
+            ]).exec(),
+            onEditingComplete: _onSubmit
           ),
         ],
       ),
+    );
+  }
+
+  void _onSubmit() {
+    FocusScope.of(context).requestFocus(FocusNode());
+    setState(() => _isLoading = false);
+
+    if (this._formKey.currentState.validate()) {
+      this._formKey.currentState.save();
+      setState(() => _isLoading = true);
+
+      Future.delayed(Duration(seconds: 2), () {
+        final currentUser = Provider.of<UserModel>(context).currentUser;
+        currentUser.emailAddress = _emailController.text;
+
+        Navigator.pushReplacementNamed(context, '/main');
+      });
+    } else {
+      setState(() => this._autoValidate = true);
+    }
+  }
+}
+
+class _SubmitButton extends StatelessWidget {
+
+  const _SubmitButton({
+    Key key,
+    @required this.isLoading,
+    @required this.onPressed
+  }) : super(key: key);
+
+  final bool isLoading;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      key: key,
+      heroTag: 'submit',
+      onPressed: onPressed,
+      child: !isLoading 
+      ? Icon(EvaIcons.arrowForward) 
+      : SizedBox(
+          height: 24,
+          width: 24,
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.white,
+            strokeWidth: 2,
+          )
+        )
     );
   }
 }

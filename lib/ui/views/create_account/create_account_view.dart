@@ -1,6 +1,6 @@
+import 'package:bus_booking/core/viewmodels/create_account_model.dart';
 import 'package:bus_booking/ui/shared/theme.dart';
 import 'package:bus_booking/ui/views/base_view.dart';
-import 'package:bus_booking/ui/views/create_account/create_account_model.dart';
 import 'package:bus_booking/ui/widgets/custom_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 const double kMaxWidth = 520;
 const Color kPrimaryColor = Colors.deepOrange;
 const Color kAccentColor = Colors.orange;
+// const Color kPrimaryColor = Colors.orange;
+// const Color kAccentColor = Colors.deepOrange;
+
 final Color kGreyColor = Colors.grey[400];
 
 final kCoreFontFamily = 'GoogleSans';
@@ -21,9 +24,9 @@ ThemeData kMaterialTheme = ThemeData(
     button: TextStyle(
       fontSize: 16.0,
       fontWeight: FontWeight.bold,
-      letterSpacing: 0.5,
+      letterSpacing: 0.3,
       color: Colors.white
-    )
+    ),
   ),
   iconTheme: IconThemeData(
     color: Colors.black87,

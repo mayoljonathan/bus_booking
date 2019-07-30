@@ -134,6 +134,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.16.1"
+  cuberto_bottom_bar:
+    dependency: "direct main"
+    description:
+      path: "..\\cuberto_bottom_bar"
+      relative: true
+    source: path
+    version: "0.0.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -249,6 +256,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.4"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.15.8"
   io:
     dependency: transitive
     description:

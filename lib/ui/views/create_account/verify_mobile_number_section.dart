@@ -1,16 +1,13 @@
 import 'dart:async';
 import 'package:bus_booking/core/helpers/ui_helper.dart';
-import 'package:bus_booking/core/models/account_creation.dart';
+import 'package:bus_booking/core/viewmodels/create_account_model.dart';
 import 'package:bus_booking/ui/shared/theme.dart';
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 
 import 'content_layout.dart';
-import 'create_account_model.dart';
 
 class VerifyMobileNumberSection extends StatefulWidget {
   const VerifyMobileNumberSection({

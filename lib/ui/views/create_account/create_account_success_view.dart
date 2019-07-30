@@ -1,6 +1,7 @@
 import 'package:bus_booking/core/config/constants.dart';
+import 'package:bus_booking/core/viewmodels/create_account_model.dart';
+import 'package:bus_booking/core/viewmodels/user_model.dart';
 import 'package:bus_booking/ui/shared/theme.dart';
-import 'package:bus_booking/ui/views/create_account/create_account_model.dart';
 import 'package:bus_booking/ui/widgets/custom_ui.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class CreateAccountSuccessView extends StatelessWidget {
                     child: FloatingActionButton.extended(
                       label: Text('Get Started', style: themeData.textTheme.button),
                       heroTag: 'submit',
-                      onPressed: () {},
+                      onPressed: () => _onGetStartedTap(context),
                     ),
                   )
                 ],
@@ -92,5 +93,15 @@ class CreateAccountSuccessView extends StatelessWidget {
         size: 56.0
       ),
     );
+  }
+
+  void _onGetStartedTap(context) {
+    final currentUser = Provider.of<UserModel>(context).currentUser;
+
+    currentUser.displayName = model.accountCreation.displayName;
+    currentUser.emailAddress = model.accountCreation.emailAddress;
+    currentUser.mobileNumber = model.accountCreation.mobileNumber;
+
+    Navigator.pushReplacementNamed(context, '/main');
   }
 }

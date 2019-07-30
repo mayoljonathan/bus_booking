@@ -1,10 +1,10 @@
 import 'package:bus_booking/core/helpers/validator.dart';
+import 'package:bus_booking/core/viewmodels/create_account_model.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'content_layout.dart';
-import 'create_account_model.dart';
 
 class EmailAddressSection extends StatefulWidget {
   const EmailAddressSection({

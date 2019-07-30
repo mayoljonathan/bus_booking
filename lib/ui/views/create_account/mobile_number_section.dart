@@ -1,12 +1,11 @@
 import 'package:bus_booking/core/helpers/validator.dart';
-import 'package:bus_booking/core/models/account_creation.dart';
+import 'package:bus_booking/core/viewmodels/create_account_model.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'content_layout.dart';
-import 'create_account_model.dart';
 
 class MobileNumberSection extends StatefulWidget {
   const MobileNumberSection({
@@ -47,6 +46,7 @@ class _MobileNumberSectionState extends State<MobileNumberSection> {
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
                 prefixText: '+63',
+                prefixStyle: Theme.of(context).textTheme.title
               ),
               inputFormatters: [
                 WhitelistingTextInputFormatter.digitsOnly,

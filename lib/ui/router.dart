@@ -1,10 +1,11 @@
-import 'package:bus_booking/ui/views/create_account/create_account_model.dart';
+import 'package:bus_booking/core/viewmodels/create_account_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bus_booking/ui/views/entry_view.dart';
+import 'package:bus_booking/ui/views/entry/entry_view.dart';
 import 'package:bus_booking/ui/views/create_account/create_account_view.dart';
 import 'package:bus_booking/ui/views/create_account/create_account_success_view.dart';
+import 'package:bus_booking/ui/views/main/main_view.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -18,6 +19,9 @@ class Router {
         return CupertinoPageRoute(builder: (_) => CreateAccountSuccessView(
           model: model,
         ));
+      case '/main':
+        return CupertinoPageRoute(builder: (_) => MainView());
+
       // case '/home':
       //   return MaterialPageRoute(builder: (_) => HomeView());
       
