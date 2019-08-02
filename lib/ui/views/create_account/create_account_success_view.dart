@@ -26,53 +26,55 @@ class CreateAccountSuccessView extends StatelessWidget {
           icon: Icon(EvaIcons.closeOutline),
           onPressed: () => Navigator.pop(context),
         ),
-        body: SliverFillRemaining(
-          hasScrollBody: false,
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: ContentLayout(
-              title: _buildTitle(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('Hello ${model.accountCreation.displayName}!', style: themeData.textTheme.display1.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: kPrimaryColor
-                  )),
-                  SizedBox(height: 24.0),
-                  RichText(
-                    textScaleFactor: MediaQuery.of(context).textScaleFactor,
-                    text: TextSpan(
-                      style: themeData.textTheme.subhead,
-                      text: 'Welcome to ',
-                      children: [
-                        TextSpan(
-                          text: '$APP_NAME',
-                          style: themeData.textTheme.subhead.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: kPrimaryColor
-                          )
-                        ),
-                        TextSpan(text: ' !')
-                      ]
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: ContentLayout(
+                title: _buildTitle(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('Hello ${model.accountCreation.displayName}!', style: themeData.textTheme.display1.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: kPrimaryColor
+                    )),
+                    SizedBox(height: 24.0),
+                    RichText(
+                      textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                      text: TextSpan(
+                        style: themeData.textTheme.subhead,
+                        text: 'Welcome to ',
+                        children: [
+                          TextSpan(
+                            text: '$APP_NAME',
+                            style: themeData.textTheme.subhead.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryColor
+                            )
+                          ),
+                          TextSpan(text: ' !')
+                        ]
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 3.0),
-                  Text('You can now start booking a bus.', style: themeData.textTheme.subhead),
-                  SizedBox(height: 24.0),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: FloatingActionButton.extended(
-                      label: Text('Get Started', style: themeData.textTheme.button),
-                      heroTag: 'submit',
-                      onPressed: () => _onGetStartedTap(context),
-                    ),
-                  )
-                ],
-              )
-            ),
-          )
-        ),
+                    SizedBox(height: 3.0),
+                    Text('You can now start booking a bus.', style: themeData.textTheme.subhead),
+                    SizedBox(height: 24.0),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: FloatingActionButton.extended(
+                        label: Text('Get Started', style: themeData.textTheme.button),
+                        heroTag: 'submit',
+                        onPressed: () => _onGetStartedTap(context),
+                      ),
+                    )
+                  ],
+                )
+              ),
+            )
+          ),
+        ]
       ),
     );
   }

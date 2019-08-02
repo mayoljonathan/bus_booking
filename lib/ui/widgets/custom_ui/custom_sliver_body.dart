@@ -6,7 +6,7 @@ class CustomSliverBody extends StatelessWidget {
     this.expandedHeight = 140,
     this.leading,
     this.title,
-    @required this.body,
+    @required this.slivers,
     this.extraLayer
   });
 
@@ -15,8 +15,8 @@ class CustomSliverBody extends StatelessWidget {
   final double expandedHeight;
   final Widget title;
 
-  /// Typically a [SliverFillRemaining], [SliverFillViewPort], [SliverList]
-  final Widget body;
+  /// Typically a list of slivers [SliverFillRemaining], [SliverFillViewPort], [SliverList]
+  final List<Widget> slivers;
 
   /// Stacks with the body
   final Widget extraLayer;
@@ -50,7 +50,7 @@ class CustomSliverBody extends StatelessWidget {
                 title: title
               ),
             ),
-            body
+            ...slivers
           ],
         ),
         if (extraLayer != null) extraLayer

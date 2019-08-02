@@ -1,4 +1,6 @@
 import 'package:bus_booking/core/viewmodels/home_view_model.dart';
+import 'package:bus_booking/core/viewmodels/main_view_model.dart';
+import 'package:bus_booking/locator.dart';
 import 'package:bus_booking/ui/shared/theme.dart';
 import 'package:bus_booking/ui/views/home/home_view.dart';
 import 'package:bus_booking/ui/views/profile/profile_view.dart';
@@ -15,7 +17,8 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
 
-  final HomeViewModel _homeViewModel = HomeViewModel();
+  final MainViewModel _mainViewModel = locator<MainViewModel>();
+  final HomeViewModel _homeViewModel = locator<HomeViewModel>();
 
   final PageStorageBucket _bucket = PageStorageBucket();
   final List<Widget> _pages = [
@@ -29,16 +32,19 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<MainViewModel>.value(value: _mainViewModel),
         ChangeNotifierProvider<HomeViewModel>.value(value: _homeViewModel)
       ],
       child: Scaffold(
+        key: _homeViewModel.scaffoldKey,
         body: PageStorage(
           child: _pages[_currentBottomIndex],
           bucket: _bucket,
         ),
         extendBody: true,
         bottomNavigationBar: _buildBottomNavBar(),
-        floatingActionButton: _currentBottomIndex == 1 ? _buildFab() : null,
+        // floatingActionButton: _currentBottomIndex == 1 ? _buildFab() : null,
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
@@ -84,14 +90,6 @@ class _MainViewState extends State<MainView> {
           },
         )
       ),
-    );
-  }
-
-  Widget _buildFab() {
-    return FloatingActionButton.extended(
-      heroTag: 'submit',
-      label: Text('Find your Bus'),
-      onPressed: _homeViewModel.onFindBusTap,
     );
   }
 }

@@ -1,5 +1,9 @@
+import 'package:bus_booking/core/services/favorite_service.dart';
+import 'package:bus_booking/core/services/place_service.dart';
 import 'package:bus_booking/core/viewmodels/create_account_model.dart';
 import 'package:bus_booking/core/viewmodels/home_view_model.dart';
+import 'package:bus_booking/core/viewmodels/location_selection_view_model.dart';
+import 'package:bus_booking/core/viewmodels/main_view_model.dart';
 import 'package:bus_booking/core/viewmodels/user_model.dart';
 import 'package:get_it/get_it.dart';
 
@@ -12,7 +16,12 @@ void setupLocator() {
   locator.registerLazySingleton<UserModel>(() => UserModel());
   locator.registerFactory<CreateAccountModel>(() => CreateAccountModel());
 
+  locator.registerLazySingleton<MainViewModel>(() => MainViewModel());
   locator.registerFactory<HomeViewModel>(() => HomeViewModel());
+  locator.registerFactory<LocationSelectionViewModel>(() => LocationSelectionViewModel());
+
+  locator.registerLazySingleton<FavoriteService>(() => FavoriteService());
+  locator.registerLazySingleton<PlaceService>(() => PlaceService());
 
   // locator.registerFactory<MenuModel>(() => MenuModel());
   // locator.registerLazySingleton<ItemDetailModel>(() => ItemDetailModel());

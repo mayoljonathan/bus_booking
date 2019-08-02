@@ -98,26 +98,28 @@ class _CreateAccountViewState extends State<CreateAccountView> {
             body: CustomSliverBody(
               controller: _scrollController,
               title: Text('Create an Account', style: Theme.of(context).textTheme.title),
-              body: SliverToBoxAdapter(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 1.8,
-                      child: PageView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        pageSnapping: true,
-                        itemCount: _viewWidgets.length,
-                        onPageChanged: (int index) => setState(() => _currentIndex = index),
-                        controller: _pageController,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.all(24.0),
-                          child: _viewWidgets[index]
-                        )
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 1.8,
+                        child: PageView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          pageSnapping: true,
+                          itemCount: _viewWidgets.length,
+                          onPageChanged: (int index) => setState(() => _currentIndex = index),
+                          controller: _pageController,
+                          itemBuilder: (context, index) => Padding(
+                            padding: const EdgeInsets.all(24.0),
+                            child: _viewWidgets[index]
+                          )
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ),
+                    ],
+                  )
+                ),
+              ],
               extraLayer: _buildBottom()
             ),
           ),

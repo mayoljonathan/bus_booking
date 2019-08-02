@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:bus_booking/ui/views/entry/entry_view.dart';
 import 'package:bus_booking/ui/views/create_account/create_account_view.dart';
 import 'package:bus_booking/ui/views/create_account/create_account_success_view.dart';
+import 'package:bus_booking/ui/views/location_selection/location_selection_view.dart';
 import 'package:bus_booking/ui/views/main/main_view.dart';
 
 class Router {
@@ -21,6 +22,12 @@ class Router {
         ));
       case '/main':
         return CupertinoPageRoute(builder: (_) => MainView());
+      case '/location-selection':
+        final arguments = settings.arguments as Map<String, dynamic>;
+        return CupertinoPageRoute(builder: (_) => LocationSelectionView(
+          title: arguments['title'],
+          locationType: arguments['locationType']
+        ));
 
       // case '/home':
       //   return MaterialPageRoute(builder: (_) => HomeView());
