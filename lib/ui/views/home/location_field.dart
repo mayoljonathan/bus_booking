@@ -30,20 +30,25 @@ class LocationField extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 12.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(placeName ?? placeholder, style: textTheme.headline.copyWith(
-                      color: (placeName != null) ? Colors.white : Colors.white54,
-                      fontWeight: (placeName != null) ? FontWeight.bold : FontWeight.w100,
-                    )),
-                  ),
-                  SizedBox(width: 6.0),
-                  Icon(EvaIcons.chevronRight, color: Colors.white70, size: 30)
-                ],
-              ),
+              // child: Row(
+              //   children: <Widget>[
+              //     Expanded(
+              //       child: Text(placeName ?? placeholder, style: textTheme.headline.copyWith(
+              //         color: (placeName != null) ? Colors.white : Colors.white54,
+              //         fontWeight: (placeName != null) ? FontWeight.bold : FontWeight.w100,
+              //       )),
+              //     ),
+              //     SizedBox(width: 6.0),
+              //     Icon(EvaIcons.chevronRight, color: Colors.white70, size: 30)
+              //   ],
+              // ),
+              child: Text(placeName ?? placeholder, style: textTheme.headline.copyWith(
+                color: (placeName != null) ? Colors.white : Colors.white54,
+                fontWeight: (placeName != null) ? FontWeight.bold : FontWeight.w100,
+              )),
             ),
-            Divider(color: Colors.white, height: 1.0)
+            Divider(color: Colors.white, height: 1.0),
+            SizedBox(height: 3.0)
           ],
         ),
       ),

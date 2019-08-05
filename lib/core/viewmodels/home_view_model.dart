@@ -28,6 +28,14 @@ class HomeViewModel extends BaseModel {
     notifyListeners();
   }
 
+  void swapLocation() {
+    final origin = bookingDto.origin;
+    bookingDto.origin = bookingDto.destination;
+    bookingDto.destination = origin;
+
+    notifyListeners();
+  }
+
   void setLocation({BuildContext context, LocationType locationType, Place place}) {
     switch (locationType) {
       case LocationType.ORIGIN:

@@ -69,7 +69,7 @@ class _HomeViewState extends State<HomeView> {
         )),
         Padding(
           padding: const EdgeInsets.only(top: 36.0),
-          child: _buildOriginAndDestination(),
+          child: _buildFieldsList(),
         )
       ],
     );
@@ -84,19 +84,28 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget _buildOriginAndDestination() {
+  Widget _buildFieldsList() {
     final bookingDto = Provider.of<HomeViewModel>(context).bookingDto;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        FieldItem(
-          label: 'From',
-          child: LocationField(
-            placeName: bookingDto.origin?.name,
-            placeholder: 'Select origin',
-            onTap: () => Provider.of<HomeViewModel>(context).onFieldItemTap(context, true),
-          )
+        Stack(
+          children: <Widget>[
+            FieldItem(
+              label: 'From',
+              child: LocationField(
+                placeName: bookingDto.origin?.name,
+                placeholder: 'Select origin',
+                onTap: () => Provider.of<HomeViewModel>(context).onFieldItemTap(context, true),
+              )
+            ),
+            Positioned(
+              bottom: 0,
+              right: 12,
+              child: _buildSwapButton()
+            )
+          ],
         ),
         FieldItem(
           label: 'To',
@@ -120,6 +129,22 @@ class _HomeViewState extends State<HomeView> {
       // child: Icon(EvaIcons.arrowForwardOutline),
       label: Text('FIND YOUR BUS'),
       onPressed: () => Provider.of<HomeViewModel>(context).onFindBusTap(context),
+    );
+  }
+
+  Widget _buildSwapButton() {
+    return Material(
+      borderRadius: BorderRadius.circular(24.0),
+      elevation: 2.0,
+      color: kAccentColor,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(24.0),
+        onTap: Provider.of<HomeViewModel>(context).swapLocation,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Icon(EvaIcons.flipOutline, color: Colors.white)
+        )
+      ),
     );
   }
 
