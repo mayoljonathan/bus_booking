@@ -163,14 +163,25 @@ class _FavoritesToggleIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String label = 'See more';
+    if (isExpanded) label = 'See less';
+
     return InkWell(
       onTap: onPressed,
       borderRadius: BorderRadius.circular(24.0),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: isExpanded
-          ? Icon(EvaIcons.arrowIosUpward)
-          : Icon(EvaIcons.arrowIosDownward),
+        padding: const EdgeInsets.only(left: 12.0),
+        child: Row(
+          children: <Widget>[
+            Text(label, style: Theme.of(context).textTheme.subtitle),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: isExpanded
+                ? Icon(EvaIcons.arrowIosUpward)
+                : Icon(EvaIcons.arrowIosDownward),
+            ),
+          ],
+        ),
       )
     );
   }
