@@ -41,21 +41,21 @@ void showConfirmDialog({
   TextStyle cancelStyle,
   TextStyle confirmStyle,
   VoidCallback onCancel,
+  bool isConfirmButtonEmphasized = false,
   @required VoidCallback onConfirm
 }) {
 
-  TextStyle _defaultStyle = TextStyle(
-    color: Theme.of(context).primaryColor
-  );
+  TextStyle _defaultStyle = TextStyle(color: Theme.of(context).primaryColor);
+
+  double borderRadius = 12.0;
+  double topContentPadding = title != null ? 12.0 : 0;
 
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      double topContentPadding = title != null ? 12.0 : 0;
-
       return AlertDialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0)
+          borderRadius: BorderRadius.circular(borderRadius)
         ),
         title: title != null ? Text(title) : Container(),
         contentPadding: const EdgeInsets.all(0),
@@ -67,19 +67,30 @@ void showConfirmDialog({
         ),
         actions: <Widget>[
           FlatButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderRadius / 2)
+            ),
             onPressed: () {
               Navigator.pop(context);
               if (onCancel != null) onCancel();
             },
             child: Text(cancelText ?? 'CANCEL', style: _defaultStyle.merge(cancelStyle)),
           ),
-          FlatButton(
-            highlightColor: confirmStyle?.color?.withOpacity(0.2),
-            onPressed: () {
-              Navigator.pop(context);
-              onConfirm();
-            },
-            child: Text(confirmText ?? 'OK', style: _defaultStyle.merge(confirmStyle)),
+          Padding(
+            padding: const EdgeInsets.only(right: 3.0),
+            child: FlatButton(
+              color: isConfirmButtonEmphasized ? Theme.of(context).primaryColor : Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(borderRadius / 2)
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+                onConfirm();
+              },
+              child: Text(confirmText ?? 'OK', style: _defaultStyle.merge(
+                TextStyle(color: isConfirmButtonEmphasized ? Colors.white : null)
+              ).merge(confirmStyle)),
+            )
           )
         ],
       );

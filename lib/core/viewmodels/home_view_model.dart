@@ -28,17 +28,22 @@ class HomeViewModel extends BaseModel {
     notifyListeners();
   }
 
-  void setLocation(LocationType type, Place place) {
-    switch (type) {
+  void setLocation({BuildContext context, LocationType locationType, Place place}) {
+    switch (locationType) {
       case LocationType.ORIGIN:
         bookingDto.origin = place;
+        notifyListeners();
+        if (bookingDto.destination == null) {
+          onFieldItemTap(context, false); 
+          return;
+        }
         break;
       case LocationType.DESTINATION:
         bookingDto.destination = place;
+        notifyListeners();
         break;
     }
-
-    notifyListeners();
+    Navigator.of(context).popUntil(ModalRoute.withName('/main'));
   }
 
   // Not used
@@ -50,6 +55,7 @@ class HomeViewModel extends BaseModel {
   void onFieldItemTap(context, bool isOrigin) {
     Navigator.pushNamed(context, '/location-selection',
       arguments: {
+        "homeViewModel": this,
         "title": isOrigin ? 'Select Origin' : 'Select Destination',
         "locationType": isOrigin ? LocationType.ORIGIN : LocationType.DESTINATION
       },

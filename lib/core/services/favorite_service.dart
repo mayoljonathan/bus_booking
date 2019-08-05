@@ -1,22 +1,46 @@
 // Mock
 import 'package:bus_booking/core/models/place.dart';
-import 'package:bus_booking/core/models/route.dart';
+import 'package:bus_booking/core/enums/location_type.dart';
+
 
 class FavoriteService {
-  final List<Place> favoriteOrigins = [
-    Place(
-      name: 'Alabang Town Center',
-    ),
-    Place(
-      name: 'Araneta Center',
-    ),
-  ];
 
-  final List<Place> favoriteDestinations = [
-    Place(
-      name: 'Ayala Malls The 30th',
-    ),
-  ];
+  final Map<LocationType, List<Place>> favorites = {
+    LocationType.ORIGIN: [
+      Place(
+        id: 'atc',
+        name: 'Alabang Town Center',
+      ),
+      Place(
+        id: 'atm',
+        name: 'Antipolo Triangle Mall',
+      ),
+    ],
+    LocationType.DESTINATION: [
+      Place(
+        id: 'amt3',
+        name: 'Ayala Malls The 30th',
+      ),
+    ]
+  };
+
+  // final List<Place> favoriteOrigins = [
+  //   Place(
+  //     id: 'atc',
+  //     name: 'Alabang Town Center',
+  //   ),
+  //   Place(
+  //     id: 'ac',
+  //     name: 'Araneta Center',
+  //   ),
+  // ];
+
+  // final List<Place> favoriteDestinations = [
+  //   Place(
+  //     id: 'amt3',
+  //     name: 'Ayala Malls The 30th',
+  //   ),
+  // ];
 
 
   // final List<Route> favorites = [

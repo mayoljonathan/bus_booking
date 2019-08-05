@@ -7,35 +7,40 @@ class CityPlacesStickyHeader extends StatelessWidget {
     Key key,
     this.label, 
     this.labelStyle,
+    this.trailing,
     this.child, 
-    this.hasDivider = true
+    this.headerPadding,
+    this.headerBackground,
   });
 
   final String label;
   final TextStyle labelStyle;
+  final Widget trailing;
   final Widget child;
-  final bool hasDivider;
+  final EdgeInsetsGeometry headerPadding;
+  final Color headerBackground;
 
   @override
   Widget build(BuildContext context) {
     return SliverStickyHeader(
-      header: Column(
-        children: <Widget>[
-          Container(
-            height: 48.0,
-            color: Theme.of(context).canvasColor,
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
-            alignment: Alignment.centerLeft,
-            child: Text(label, 
+      header: Container(
+        height: 48.0,
+        color: headerBackground == null ? Theme.of(context).canvasColor : headerBackground,
+        padding: headerPadding == null ? const EdgeInsets.symmetric(horizontal: 24.0) : headerPadding,
+        alignment: Alignment.centerLeft,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(label, 
               style: Theme.of(context).textTheme.subhead.copyWith(
                 fontWeight: FontWeight.w500,
                 fontSize: 18.0,
                 color: kPrimaryColor
               ).merge(labelStyle)
             ),
-          ),
-          if (hasDivider) Divider(height: 1.0)
-        ],
+            if (trailing != null) trailing
+          ],
+        ),
       ),
       sliver: child
     );

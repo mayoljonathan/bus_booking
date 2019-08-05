@@ -21,10 +21,14 @@ class Router {
           model: model,
         ));
       case '/main':
-        return CupertinoPageRoute(builder: (_) => MainView());
+        return CupertinoPageRoute(
+          builder: (_) => MainView(), 
+          settings: settings
+        );
       case '/location-selection':
         final arguments = settings.arguments as Map<String, dynamic>;
         return CupertinoPageRoute(builder: (_) => LocationSelectionView(
+          homeViewModel: arguments['homeViewModel'],
           title: arguments['title'],
           locationType: arguments['locationType']
         ));

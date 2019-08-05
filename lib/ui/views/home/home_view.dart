@@ -78,7 +78,7 @@ class _HomeViewState extends State<HomeView> {
   Widget _buildLowerSection() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 48.0),
+        padding: const EdgeInsets.only(top: 48.0, bottom: 48.0 + kBottomNavigationBarHeight),
         child: _buildFab()
       )
     );
