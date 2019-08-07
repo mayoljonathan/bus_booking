@@ -1,4 +1,3 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 class LocationField extends StatelessWidget {
@@ -7,11 +6,13 @@ class LocationField extends StatelessWidget {
     @required this.placeName,
     @required this.placeholder,
     @required this.onTap,
+    this.padding = const EdgeInsets.symmetric(vertical: 12.0)
   });
 
   final String placeName;
   final String placeholder;
   final VoidCallback onTap;
+  final EdgeInsetsGeometry padding;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class LocationField extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              padding: padding,
               // child: Row(
               //   children: <Widget>[
               //     Expanded(

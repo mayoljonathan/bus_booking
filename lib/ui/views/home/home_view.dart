@@ -97,9 +97,11 @@ class _HomeViewState extends State<HomeView> {
               child: LocationField(
                 placeName: bookingDto.origin?.name,
                 placeholder: 'Select origin',
+                padding: const EdgeInsets.fromLTRB(0, 12.0, 36.0, 12.0),
                 onTap: () => Provider.of<HomeViewModel>(context).onFieldItemTap(context, true),
               )
             ),
+            if (Provider.of<HomeViewModel>(context).shouldShowSwapLocationButton()) 
             Positioned(
               bottom: 0,
               right: 12,

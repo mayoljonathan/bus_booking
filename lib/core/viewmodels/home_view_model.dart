@@ -28,6 +28,8 @@ class HomeViewModel extends BaseModel {
     notifyListeners();
   }
 
+  bool shouldShowSwapLocationButton() => (bookingDto.origin != null || bookingDto.destination != null);
+
   void swapLocation() {
     final origin = bookingDto.origin;
     bookingDto.origin = bookingDto.destination;
@@ -60,7 +62,7 @@ class HomeViewModel extends BaseModel {
     notifyListeners();
   }
 
-  void onFieldItemTap(context, bool isOrigin) {
+  void onFieldItemTap(BuildContext context, bool isOrigin) {
     Navigator.pushNamed(context, '/location-selection',
       arguments: {
         "homeViewModel": this,
@@ -70,7 +72,7 @@ class HomeViewModel extends BaseModel {
     );
   }
 
-  void onFindBusTap(context) async {
+  void onFindBusTap(BuildContext context) async {
     if (bookingDto.origin == null || bookingDto.destination == null) {
       String errorMessage;
       if (bookingDto.origin == null) {
