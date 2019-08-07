@@ -139,13 +139,17 @@ class _HomeViewState extends State<HomeView> {
       borderRadius: BorderRadius.circular(24.0),
       elevation: 2.0,
       color: kAccentColor,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(24.0),
-        onTap: Provider.of<HomeViewModel>(context).swapLocation,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Icon(EvaIcons.flipOutline, color: Colors.white)
-        )
+      child: Tooltip(
+        message: 'Swap',
+        margin: const EdgeInsets.only(top: 6.0),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(24.0),
+          onTap: Provider.of<HomeViewModel>(context).swapLocation,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Icon(EvaIcons.flipOutline, color: Colors.white)
+          )
+        ),
       ),
     );
   }
