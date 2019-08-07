@@ -6,6 +6,7 @@ class RoundedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool automaticallyImplyLeading;
   final Widget leading;
   final Widget title;
+  final PreferredSize bottom;
 
   const RoundedAppBar({
     Key key,
@@ -13,10 +14,17 @@ class RoundedAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leading,
     this.title,
     this.padding,
-    this.height = 75,
+    this.bottom,
+    this.height = kToolbarHeight + 12.0,
   });
 
-  Size get preferredSize => Size.fromHeight(height);
+  Size get preferredSize {
+    Size size = Size.fromHeight(height);
+    if (bottom != null) {
+      size = Size.fromHeight(height + bottom.preferredSize.height);
+    }
+    return size;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +43,17 @@ class RoundedAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: padding != null
             ? padding
             : EdgeInsets.symmetric(horizontal: 11.0),
-          child: Row(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _buildLeadingIcon(context),
-              SizedBox(width: 6.0),
-              if (title != null) title
+              Row(
+                children: <Widget>[
+                  _buildLeadingIcon(context),
+                  SizedBox(width: 6.0),
+                  if (title != null) Expanded(child: title)
+                ],
+              ),
+              if (bottom != null) bottom
             ],
           ),
         )

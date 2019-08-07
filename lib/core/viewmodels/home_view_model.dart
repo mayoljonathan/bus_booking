@@ -98,8 +98,11 @@ class HomeViewModel extends BaseModel {
       return;
     }
 
-    // TODO
-    print('navigate');
+    Navigator.pushNamed(context, '/bus-selection', 
+      arguments: {
+        "homeViewModel": this,
+      }
+    );
 
   }
 

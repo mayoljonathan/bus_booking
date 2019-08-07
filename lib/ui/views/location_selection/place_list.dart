@@ -52,7 +52,7 @@ class PlaceList extends StatelessWidget {
       key: ValueKey<String>(items[i].id),
       title: items[i].name,
       onTap: () => onTap(items[i]),
-      onLongPress: () => onLongPress(items[i]),
+      onLongPress: () => onLongPress != null ? onLongPress(items[i]) : null,
       trailing: hasTrailing ? Padding(
         padding: const EdgeInsets.only(right: 6.0),
         child: IconButton(

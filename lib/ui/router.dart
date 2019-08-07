@@ -1,4 +1,5 @@
 import 'package:bus_booking/core/viewmodels/create_account_model.dart';
+import 'package:bus_booking/ui/views/bus_selection/bus_selection_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,12 @@ class Router {
           homeViewModel: arguments['homeViewModel'],
           title: arguments['title'],
           locationType: arguments['locationType']
+        ));
+
+      case '/bus-selection':
+        final arguments = settings.arguments as Map<String, dynamic>;
+        return CupertinoPageRoute(builder: (_) => BusSelectionView(
+          homeViewModel: arguments['homeViewModel'],
         ));
 
       // case '/home':

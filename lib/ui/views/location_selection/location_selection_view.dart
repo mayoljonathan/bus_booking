@@ -3,6 +3,7 @@ import 'package:bus_booking/core/models/city.dart';
 import 'package:bus_booking/core/models/place.dart';
 import 'package:bus_booking/core/viewmodels/home_view_model.dart';
 import 'package:bus_booking/core/viewmodels/location_selection_view_model.dart';
+import 'package:bus_booking/locator.dart';
 import 'package:bus_booking/ui/shared/theme.dart';
 import 'package:bus_booking/ui/widgets/custom_ui.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
@@ -30,7 +31,7 @@ class LocationSelectionView extends StatefulWidget {
 
 class _LocationSelectionViewState extends State<LocationSelectionView> with TickerProviderStateMixin {
 
-  final LocationSelectionViewModel _locationSelectionViewModel = LocationSelectionViewModel();
+  final LocationSelectionViewModel _locationSelectionViewModel = locator<LocationSelectionViewModel>();
   get _cityPlaces => _locationSelectionViewModel.getCityWithPlaces(widget.locationType);
 
   bool _isFavoritesHeaderExpanded = false;

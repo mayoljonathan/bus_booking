@@ -6,6 +6,9 @@ class CustomSliverBody extends StatelessWidget {
     this.expandedHeight = 140,
     this.leading,
     this.title,
+    this.background,
+    this.collapseMode = CollapseMode.parallax,
+    this.bottomSize = kToolbarHeight / 1.2,
     @required this.slivers,
     this.extraLayer
   });
@@ -14,6 +17,12 @@ class CustomSliverBody extends StatelessWidget {
   final Widget leading;
   final double expandedHeight;
   final Widget title;
+
+  /// Background widget of the flexibleSpaceBar
+  final Widget background;
+  final CollapseMode collapseMode;
+
+  final double bottomSize;
 
   /// Typically a list of slivers [SliverFillRemaining], [SliverFillViewPort], [SliverList]
   final List<Widget> slivers;
@@ -40,14 +49,16 @@ class CustomSliverBody extends StatelessWidget {
               automaticallyImplyLeading: false,
               leading: _buildLeading(context),
               bottom: PreferredSize(
-                preferredSize: Size.fromHeight(kToolbarHeight / 1.2),
+                preferredSize: Size.fromHeight(bottomSize),
                 child: Container(),
               ),
               pinned: true,
               expandedHeight: expandedHeight,
               flexibleSpace: FlexibleSpaceBar(
                 titlePadding: const EdgeInsetsDirectional.only(start: 24, bottom: 16.0),
-                title: title
+                title: title,
+                background: background,
+                collapseMode: collapseMode,
               ),
             ),
             ...slivers
@@ -67,10 +78,13 @@ class CustomSliverBody extends StatelessWidget {
         onPressed: () => Navigator.pop(context),
       );
     }
-
     return Padding(
-      padding: const EdgeInsets.only(left: 12.0, top: 12.0),
+      padding: const EdgeInsets.only(left: 12.0),
       child: _widget
     );
+    // return Padding(
+    //   padding: const EdgeInsets.only(left: 12.0, top: 12.0),
+    //   child: _widget
+    // );
   }
 }
