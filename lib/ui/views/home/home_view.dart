@@ -8,7 +8,6 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'field_item.dart';
 import 'location_field.dart';
 import 'trip_date.dart';
-import 'seat_chooser.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key key}) : super(key: key);

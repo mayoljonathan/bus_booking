@@ -5,13 +5,11 @@ class BookingDto {
   Place origin;
   Place destination;
   DateTime date;
-  int numberOfSeats;
 
   BookingDto({
     this.origin,
     this.destination,
     this.date,
-    this.numberOfSeats
   });
 
   String getDateReadable() {

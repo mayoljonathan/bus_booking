@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 class AmenityItem extends StatelessWidget {
   const AmenityItem({
+    Key key,
     @required this.label,
     @required this.isSelected,
     @required this.onTap
-  });
+  }) : super(key: key);
 
   final String label;
   final bool isSelected;
@@ -16,9 +17,11 @@ class AmenityItem extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Center(
-      child: Container(
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 200),
         decoration: BoxDecoration(
-          color: isSelected ? kPrimaryColor : kGreyColor.withOpacity(0.2),
+          // color: isSelected ? kPrimaryColor : kGreyColor.withOpacity(0.2),
+          color: isSelected ? kPrimaryColor.withOpacity(0.1) : kGreyColor.withOpacity(0.2),
           borderRadius: BorderRadius.circular(12.0)
         ),
         child: Material(
@@ -29,7 +32,8 @@ class AmenityItem extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
               child: Text(label, style: TextStyle(
-                color: isSelected ? Colors.white : Colors.grey,
+                // color: isSelected ? Colors.white : Colors.grey,
+                color: isSelected ? kPrimaryColor : Colors.grey,
                 fontWeight: FontWeight.bold
               ))
             ),

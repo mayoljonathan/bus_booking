@@ -13,15 +13,11 @@ class HomeViewModel extends BaseModel {
       date: DateTime(_today.year, _today.month, _today.day),
       origin: null,
       destination: null,
-      numberOfSeats: 1
     );
   }
 
   BookingDto bookingDto;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-
-  // Number of max seats a user can choose
-  int maxSeats = 10;
 
   void setTripDate(DateTime dateTime) {
     bookingDto.date = dateTime;
@@ -54,12 +50,6 @@ class HomeViewModel extends BaseModel {
         break;
     }
     Navigator.of(context).popUntil(ModalRoute.withName('/main'));
-  }
-
-  // Not used
-  void setNumberOfSeat(int number) {
-    bookingDto.numberOfSeats = number;
-    notifyListeners();
   }
 
   void onFieldItemTap(BuildContext context, bool isOrigin) {

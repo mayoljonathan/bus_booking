@@ -436,6 +436,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  slide_container:
+    dependency: "direct main"
+    description:
+      name: slide_container
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.7"
   source_gen:
     dependency: transitive
     description:

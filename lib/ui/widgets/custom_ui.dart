@@ -17,3 +17,5 @@ part 'custom_ui/rounded_app_bar.dart';
 part 'custom_ui/custom_sliver_body.dart';
 part 'custom_ui/custom_datepicker.dart';
 part 'custom_ui/custom_snackbar.dart';
+part 'custom_ui/custom_fullscreen_dialog.dart';
+part 'custom_ui/custom_route.dart';

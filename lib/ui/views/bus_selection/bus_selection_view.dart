@@ -1,12 +1,14 @@
-import 'package:bus_booking/core/models/amenity.dart';
+import 'package:bus_booking/core/models/bus.dart';
+import 'package:bus_booking/core/viewmodels/base_model.dart';
 import 'package:bus_booking/core/viewmodels/bus_selection_view_model.dart';
 import 'package:bus_booking/core/viewmodels/home_view_model.dart';
-import 'package:bus_booking/locator.dart';
+import 'package:bus_booking/ui/views/base_view.dart';
 import 'package:bus_booking/ui/widgets/custom_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'amenity_list.dart';
+import 'bus_card_list.dart';
 
 class BusSelectionView extends StatefulWidget {
   const BusSelectionView({
@@ -21,19 +23,11 @@ class BusSelectionView extends StatefulWidget {
 
 class _BusSelectionViewState extends State<BusSelectionView> {
   
-  final List<Amenity> _amenities = [
-    Amenity(id: 'ac', name: 'A/C'),
-    Amenity(id: 'wifi', name: 'Free Wi-Fi'),
-    Amenity(id: 'rr', name: 'Restroom'),
-  ];
-
-  final BusSelectionViewModel _busSelectionViewModel = locator<BusSelectionViewModel>();
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      builder: (ctx) => _busSelectionViewModel,
-      child: Scaffold(
+    return BaseView<BusSelectionViewModel>(
+      onModelReady: (model) => model.getBusSchedules(),
+      builder: (_,__,___) => Scaffold(
         appBar: RoundedAppBar(
           title: _buildTitle(),
           bottom: _buildBottom()
@@ -74,13 +68,34 @@ class _BusSelectionViewState extends State<BusSelectionView> {
         height: 44,
         child: Material(
           color: Colors.transparent,
-          child: AmenityList(items: _amenities)
+          child: Consumer<BusSelectionViewModel>(
+            builder: (_,model,__) {
+              if (model.state != ViewState.BUSY) return AmenityList(
+                items: model.getAvailableFilterAmenities()
+              );
+              return Container();
+            }
+          )
         )
       )
     );
   }
 
   Widget _buildBody() {
-    // TODO
+    return Consumer<BusSelectionViewModel>(
+      builder: (_,model,__) {
+        if (model.state == ViewState.BUSY) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        return BusCardList(
+          animatedListKey: model.animatedListKey,
+          controller: model.scrollController,
+          items: model.busSchedules,
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+          onTap: (BusSchedule busSchedule) => model.onBusScheduleTap(context, busSchedule)
+        );
+      },
+    );
   }
 }

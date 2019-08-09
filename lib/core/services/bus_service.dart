@@ -9,16 +9,15 @@ class BusService {
       BusSchedule(
         id: 'bs1',
         bus: Bus(
-          seatCapacity: 61,
-          busCompany: BusCompany(
+          seatCapacity: 60,
+          company: BusCompany(
             id: 'bc1',
             name: 'HM Transport'
           ),
         ),
         amenities: [
-          Amenity(name: 'Wi-Fi'),
-          Amenity(name: 'Restroom'),
-          Amenity(name: 'Comfortable Seats'),
+          Amenity(id: 'wifi', name: 'Wi-Fi'),
+          Amenity(id: 'rr', name: 'Restroom'),
         ],
         baseFare: 120,
         availableSeats: 24,
@@ -28,15 +27,16 @@ class BusService {
       BusSchedule(
         id: 'bs2',
         bus: Bus(
-          seatCapacity: 66,
-          busCompany: BusCompany(
+          seatCapacity: 65,
+          company: BusCompany(
             id: 'bc2',
             name: 'RRCG Transport'
           ),
         ),
         amenities: [
-          Amenity(name: 'Wi-Fi'),
-          Amenity(name: 'Comfortable Seats'),
+          Amenity(id: 'ac', name: 'A/C'),
+          Amenity(id: 'wifi', name: 'Wi-Fi'),
+          Amenity(id: 'cs', name: 'Comfortable Seats'),
         ],
         baseFare: 100,
         availableSeats: 50,
@@ -46,8 +46,8 @@ class BusService {
       BusSchedule(
         id: 'bs3',
         bus: Bus(
-          seatCapacity: 56,
-          busCompany: BusCompany(
+          seatCapacity: 55,
+          company: BusCompany(
             id: 'bc3',
             name: 'RRCG Transport'
           ),
@@ -55,7 +55,25 @@ class BusService {
         baseFare: 90,
         availableSeats: 23,
         departureTime: '7:00 AM',
-        arrivalTime: '9:00 AM'
+        arrivalTime: '9:00 AM',
+        amenities: []
+      ),
+      BusSchedule(
+        id: 'bs4',
+        bus: Bus(
+          seatCapacity: 55,
+          company: BusCompany(
+            id: 'bc3',
+            name: 'RRCG Transport'
+          ),
+        ),
+        baseFare: 90,
+        availableSeats: 23,
+        departureTime: '7:00 AM',
+        arrivalTime: '9:00 AM',
+        amenities: [
+          Amenity(id: 'ac', name: 'A/C'),
+        ]
       )
     ];
 

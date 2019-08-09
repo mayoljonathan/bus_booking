@@ -1,5 +1,7 @@
+import 'package:bus_booking/core/models/bus.dart';
 import 'package:bus_booking/core/viewmodels/create_account_model.dart';
 import 'package:bus_booking/ui/views/bus_selection/bus_selection_view.dart';
+import 'package:bus_booking/ui/views/seat_selection/seat_selection_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -40,23 +42,11 @@ class Router {
           homeViewModel: arguments['homeViewModel'],
         ));
 
-      // case '/home':
-      //   return MaterialPageRoute(builder: (_) => HomeView());
-      
-      // case '/option-item-quantity-picker':
-      //   final args = settings.arguments as Map<String, dynamic>;
-      //   final optionItem = args['optionItem'] as OptionItem;
-      //   final initialQuantity = args['initialQuantity'] as int;
-      //   final maxQuantity = args['maxQuantity'] as int;
-
-      //   return HeroDialogRoute(
-      //     builder: (BuildContext context) => OptionItemQuantityPickerView(
-      //       optionItem: optionItem,
-      //       initialQuantity: initialQuantity,
-      //       maxQuantity: maxQuantity,
-      //     )
-      //   );
-      
+      case '/seat-selection':
+        final busSchedule = settings.arguments as BusSchedule;
+        return CupertinoPageRoute(builder: (_) => SeatSelectionView(
+          busSchedule: busSchedule
+        ));
 
       default:
         return MaterialPageRoute(builder: (_) {

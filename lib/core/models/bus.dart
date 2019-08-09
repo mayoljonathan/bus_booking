@@ -1,11 +1,12 @@
 import 'amenity.dart';
+import 'money.dart';
 
 class Bus {
-  BusCompany busCompany;
-  int seatCapacity; //including driver's seat
+  BusCompany company;
+  int seatCapacity;
 
   Bus({
-    this.busCompany,
+    this.company,
     this.seatCapacity
   });
 }
@@ -20,7 +21,7 @@ class BusCompany {
   });
 }
 
-class BusSchedule {
+class BusSchedule extends Money {
   String id;
   Bus bus;
   List<Amenity> amenities;
@@ -38,4 +39,13 @@ class BusSchedule {
     this.departureTime,
     this.arrivalTime
   });
+
+  @override
+  double get amount => baseFare;
+
+  String seatsAvailableToString() {
+    String noun = 'seat';
+    if (availableSeats > 1) noun += 's';
+    return '$availableSeats $noun available';
+  }
 }
