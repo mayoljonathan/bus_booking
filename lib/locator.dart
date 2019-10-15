@@ -20,7 +20,7 @@ void setupLocator() {
   locator.registerFactory<CreateAccountModel>(() => CreateAccountModel());
 
   locator.registerLazySingleton<MainViewModel>(() => MainViewModel());
-  locator.registerFactory<HomeViewModel>(() => HomeViewModel());
+  locator.registerLazySingleton<HomeViewModel>(() => HomeViewModel());
   locator.registerFactory<LocationSelectionViewModel>(() => LocationSelectionViewModel());
   locator.registerFactory<BusSelectionViewModel>(() => BusSelectionViewModel());
   locator.registerFactory<SeatSelectionViewModel>(() => SeatSelectionViewModel());

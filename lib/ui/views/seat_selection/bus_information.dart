@@ -1,9 +1,10 @@
 import 'package:bus_booking/core/models/bus.dart';
+import 'package:bus_booking/core/viewmodels/home_view_model.dart';
+import 'package:bus_booking/locator.dart';
 import 'package:bus_booking/ui/shared/theme.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:slide_container/slide_container.dart';
-import 'package:slide_container/slide_container_controller.dart';
+import 'package:provider/provider.dart';
 
 class BusInformation extends StatefulWidget {
   const BusInformation({
@@ -19,24 +20,7 @@ class BusInformation extends StatefulWidget {
 
 class _BusInformationState extends State<BusInformation> {
 
-  final SlideContainerController slideController = SlideContainerController();
-  final ScrollController scrollController = ScrollController();
-  double get maxSlideDistance => MediaQuery.of(context).size.height;
-  ScrollPosition get scrollPosition => scrollController.position;
-  bool get isAtMinScrollPosition => scrollController.offset <= scrollPosition.minScrollExtent;
-  bool get isAtMaxScrollPosition => scrollController.offset >= scrollPosition.maxScrollExtent;
-  double position = 0.0;
-  bool stoppedScrollingAtMinScrollPosition = true;
-  bool stoppedScrollingAtMaxScrollPosition = false;
-
   double _opacity = 0;
-
-  @override
-  void dispose() {
-    scrollController?.dispose();
-    slideController?.dispose();
-    super.dispose();
-  }
 
   @override
   void initState() {
@@ -48,77 +32,22 @@ class _BusInformationState extends State<BusInformation> {
     });
   }
 
-  void onSlide(double position) => setState(() => this.position = position);
-  void onSlideCompleted() => Navigator.pop(context);
-
-  bool onScrollNotification(ScrollNotification scrollNotification) {
-    if (scrollNotification is ScrollEndNotification) {
-      stoppedScrollingAtMinScrollPosition = isAtMinScrollPosition;
-      stoppedScrollingAtMaxScrollPosition = isAtMaxScrollPosition;
-      print(stoppedScrollingAtMinScrollPosition
-          ? "Stopped at top"
-          : stoppedScrollingAtMaxScrollPosition ? "Stopped at bottom" : "Not stopped at extremity");
-    }
-    if (scrollNotification is OverscrollNotification) {
-      if (scrollNotification.overscroll < 0 && stoppedScrollingAtMinScrollPosition) {
-        slideController.forceSlide(SlideContainerDirection.topToBottom);
-      }
-      if (scrollNotification.overscroll > 0 && stoppedScrollingAtMaxScrollPosition) {
-        slideController.forceSlide(SlideContainerDirection.bottomToTop);
-      }
-    }
-    return false;
-  }
-
   @override
-  Widget build(BuildContext context) => SlideContainer(
-    controller: slideController,
-    slideDirection: SlideContainerDirection.vertical,
-    autoSlideDuration: Duration(milliseconds: 300),
-    maxSlideDistance: maxSlideDistance,
-    onSlide: onSlide,
-    onSlideCompleted: onSlideCompleted,
-    child: NotificationListener<ScrollNotification>(
-      onNotification: onScrollNotification,
-      child: SingleChildScrollView(
-        controller: scrollController,
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          alignment: Alignment.center,
-          color: Colors.white,
-          // decoration: BoxDecoration(
-          //   gradient: LinearGradient(
-          //     begin: Alignment.topLeft,
-          //     end: Alignment.bottomRight,
-          //     colors: [
-          //       Color.lerp(Color(0xfffddb92), Color(0xfffed6e3), position),
-          //       Color.lerp(Color(0xffd1fdff), Color(0xff9a9ce2), position),
-          //     ],
-          //   ),
-          // ),
-          child: _buildBody()
-        ),
-      ),
-    ),
-  );
-
-  Widget _buildBody() {
+  Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Material(
-      color: Colors.transparent,
+      color: Theme.of(context).canvasColor,
       child: SafeArea(
         child: AnimatedOpacity(
           opacity: _opacity,
           duration: Duration(milliseconds: 600),
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(24.0, 12.0, 12.0, 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(24.0, 12.0, 12.0, 12.0),
+                child: Row(
                   children: <Widget>[
                     Expanded(
                       child: Text(widget.busSchedule.bus.company.name, style: textTheme.headline.copyWith(
@@ -131,14 +60,11 @@ class _BusInformationState extends State<BusInformation> {
                     ),
                   ],
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 12.0),
-                    child: _buildContent()
-                  ),
-                )
-              ],
-            )
+              ),
+              Expanded(
+                child: _buildContent(),
+              )
+            ],
           ),
         ),
       ),
@@ -146,6 +72,83 @@ class _BusInformationState extends State<BusInformation> {
   }
 
   Widget _buildContent() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildMap(),
+            _buildRouteContent(),
+            _buildSection(
+              title: 'Amenities',
+              child: _buildAmenities()
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMap() {
+    return Placeholder(
+      fallbackHeight: 200,
+    );
+  }
+
+  Widget _buildSection({ @required String title, @required Widget child }) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(title, style: textTheme.title),
+          child
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRouteContent() {
+    final model = locator<HomeViewModel>();
+    
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 18.0),
+      child: Row(
+        children: <Widget>[
+          Expanded(child: _buildRouteItem(model.bookingDto.origin.name, widget.busSchedule.departureTime)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Icon(EvaIcons.arrowForward)
+          ),
+          Expanded(child: _buildRouteItem(model.bookingDto.destination.name, widget.busSchedule.arrivalTime)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRouteItem(String name, String time) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
+    return Column(
+      children: <Widget>[
+        Text(name, 
+          style: textTheme.subhead.copyWith(
+            fontWeight: FontWeight.bold,
+          color: kPrimaryColor
+          ),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 3.0),
+        Text(time)
+      ],
+    );
+  }
+
+  Widget _buildAmenities() {
+    // TODO
     return Container();
   }
 
