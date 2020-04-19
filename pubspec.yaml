@@ -29,7 +29,9 @@ dependencies:
   fluttertoast: ^3.1.0
   validate: ^1.7.0
   cuberto_bottom_bar:
-    path: '../cuberto_bottom_bar'
+    # path: '../cuberto_bottom_bar'
+    git:
+      url: https://github.com/mayoljonathan/cuberto_bottom_bar.git
   intl: ^0.15.8
   flutter_sticky_header: ^0.4.0
 

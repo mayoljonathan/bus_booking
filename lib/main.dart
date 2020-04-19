@@ -32,8 +32,7 @@ class BusBookingApp extends StatelessWidget {
       child: MaterialApp(
         theme: kMaterialTheme,
         title: APP_NAME,
-        // initialRoute: '/',
-        initialRoute: '/main',
+        initialRoute: '/',
         onGenerateRoute: Router.generateRoute,
         showPerformanceOverlay: false,
       ),

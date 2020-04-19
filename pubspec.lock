@@ -14,7 +14,7 @@ packages:
       name: archive
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.10"
+    version: "2.0.11"
   args:
     dependency: transitive
     description:
@@ -28,7 +28,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.0"
+    version: "2.4.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -137,9 +137,11 @@ packages:
   cuberto_bottom_bar:
     dependency: "direct main"
     description:
-      path: "..\\cuberto_bottom_bar"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: c4c258ad660372cf437f3feb6503ec065c1513f5
+      url: "https://github.com/mayoljonathan/cuberto_bottom_bar.git"
+    source: git
     version: "0.0.2"
   cupertino_icons:
     dependency: "direct main"
@@ -325,14 +327,14 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.5"
+    version: "0.12.6"
   meta:
     dependency: transitive
     description:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.7"
+    version: "1.1.8"
   mime:
     dependency: transitive
     description:
@@ -491,7 +493,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.5"
+    version: "0.2.11"
   timing:
     dependency: transitive
     description:

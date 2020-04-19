@@ -256,7 +256,9 @@ class _ModalBottomSheetState<T> extends State<_ModalBottomSheet<T>> {
         return '';
       case TargetPlatform.android:
       case TargetPlatform.fuchsia:
-        return localizations.dialogLabel;
+      // case TargetPlatform.macOS:
+      //   return localizations.dialogLabel;
+      //   break;
     }
     return null;
   }
