@@ -13,9 +13,6 @@ import 'package:get_it/get_it.dart';
 GetIt locator = GetIt();
 
 void setupLocator() {
-  // locator.registerLazySingleton<MenuService>(() => MenuService());
-  // locator.registerLazySingleton<OrderService>(() => OrderService());
-
   locator.registerLazySingleton<UserModel>(() => UserModel());
   locator.registerFactory<CreateAccountModel>(() => CreateAccountModel());
 
@@ -28,10 +25,4 @@ void setupLocator() {
   locator.registerLazySingleton<FavoriteService>(() => FavoriteService());
   locator.registerLazySingleton<PlaceService>(() => PlaceService());
   locator.registerLazySingleton<BusService>(() => BusService());
-
-  // locator.registerFactory<MenuModel>(() => MenuModel());
-  // locator.registerLazySingleton<ItemDetailModel>(() => ItemDetailModel());
-  // locator.registerLazySingleton<MyCartModel>(() => MyCartModel());
-
-  // locator.registerFactory<PaymentModel>(() => PaymentModel());
 }
